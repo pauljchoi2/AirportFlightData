@@ -1,6 +1,6 @@
 from scrapy import Selector, Request
 from .airport_spider import AirportSpider
-from src.items import DepartureItem, ArrivalItem
+from src.items import FlightItem
 from ast import literal_eval
 
 class YYZSpider(AirportSpider):
@@ -23,16 +23,7 @@ class YYZSpider(AirportSpider):
         flights = literal_eval(Selector(response).xpath("//p/text()").extract_first())["aaData"]
         departure_info = []
         for flight in flights:
-            departure_item = DepartureItem()
-            departure_item["airline"] = flight[0].strip()
-            departure_item["flight_no"] = flight[1].strip()
-            departure_item["destination"] = flight[2].strip()
-            departure_item["expected_departure"] = flight[3].strip()
-            departure_item["actual_departure"] = flight[4].strip()
-            departure_item["status"] = flight[5].strip()
-            departure_item["terminal"] = flight[6].strip()
-            departure_item["gate"] = flight[9].strip()
-            departure_info.append(departure_item)
+            departure_info.append(self.__derive_flight(flight, AirportSpider.DEP))
         self.airport_flights["departures"] = departure_info
         yield Request(url=YYZSpider.urls[1], callback=self.__arrival_parse)
     
@@ -40,15 +31,19 @@ class YYZSpider(AirportSpider):
         flights = literal_eval(Selector(response).xpath("//p/text()").extract_first())["aaData"]
         arrival_info = []
         for flight in flights:
-            arrival_item = ArrivalItem()
-            arrival_item["airline"] = flight[0].strip()
-            arrival_item["flight_no"] = flight[1].strip()
-            arrival_item["origin"] = flight[2].strip()
-            arrival_item["expected_arrival"] = flight[3].strip()
-            arrival_item["actual_arrival"] = flight[4].strip()
-            arrival_item["status"] = flight[5].strip()
-            arrival_item["terminal"] = flight[6].strip()
-            arrival_item["gate"] = flight[9].strip()
-            arrival_info.append(arrival_item)
+            arrival_info.append(self.__derive_flight(flight, AirportSpider.ARR))
         self.airport_flights["arrivals"] = arrival_info
         yield self.airport_flights
+    
+    def __derive_flight(self, flight, leg):
+        flight_item = FlightItem()
+        flight_item["leg"] = leg
+        flight_item["airline"] = flight[0].strip()
+        flight_item["flight_no"] = flight[1].strip()
+        flight_item["city"] = flight[2].strip()
+        flight_item["expected_time"] = self.date + "T" + flight[3].strip().split()[2] + AirportSpider.SECONDS_SUFFIX
+        flight_item["actual_time"] = self.date + "T" + flight[4].strip().split()[2] + AirportSpider.SECONDS_SUFFIX
+        flight_item["status"] = flight[5].strip()
+        flight_item["terminal"] = flight[6].strip()
+        flight_item["gate"] = flight[9].strip()
+        return flight_item
