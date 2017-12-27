@@ -1,9 +1,23 @@
 from scrapy import Spider
-from src.items import AirportFlightItem, DepartureItem, ArrivalItem
+from src.items import AirportFlightItem
 import datetime
 
 class AirportSpider(Spider):
+    DEP = "D"
+    ARR = "A"
+    SECONDS_SUFFIX = ":00Z"
+    DOMESTIC = "DOMESTIC"
+    INTERNATIONAL = "INTERNATIONAL"
+    UNKNOWN = "UNKNOWN"
+    DEPARTURES = "DEPARTURES"
+    ARRIVALS = "ARRIVALS"
 
     def __init__(self):
+        self.date = datetime.datetime.now().date().strftime("%Y-%m-%d")
         self.airport_flights = AirportFlightItem()
-        self.airport_flights["datetime_of_collection"] = datetime.datetime.now()
+        self.airport_flights["datetime_of_collection"] = datetime.datetime.now().replace(microsecond=0).isoformat() + "Z"
+        self.airport_flights["departures"] = []
+        self.airport_flights["arrivals"] = []
+
+    def __derive_flight(self, flight, leg):
+        pass

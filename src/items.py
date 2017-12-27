@@ -14,23 +14,13 @@ class AirportFlightItem(scrapy.Item):
     departures = scrapy.Field()
     arrivals = scrapy.Field()
 
-class DepartureItem(scrapy.Item):
+class FlightItem(scrapy.Item):
     airline = scrapy.Field()
     flight_no = scrapy.Field()
-    destination = scrapy.Field()
-    expected_departure = scrapy.Field()
-    actual_departure = scrapy.Field()
+    leg = scrapy.Field()
+    city = scrapy.Field()
+    expected_time = scrapy.Field()
+    actual_time = scrapy.Field()
     status = scrapy.Field()
     terminal = scrapy.Field()
     gate = scrapy.Field()
-
-class ArrivalItem(scrapy.Item):
-    airline = scrapy.Field()
-    flight_no = scrapy.Field()
-    origin = scrapy.Field()
-    expected_arrival = scrapy.Field()
-    actual_arrival = scrapy.Field()
-    status = scrapy.Field()
-    terminal = scrapy.Field()
-    gate = scrapy.Field()
-
