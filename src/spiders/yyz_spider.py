@@ -10,11 +10,11 @@ class YYZSpider(AirportSpider):
         "https://www.torontopearson.com/FlightScheduleData/dep_gtaa_data_today.txt",
         "https://www.torontopearson.com/FlightScheduleData/arr_gtaa_data_today.txt"
     ]
-    YYZ = "YYZ"
+    ICAO_CODE = "YYZ"
 
     def __init__(self):
         super().__init__()
-        self.airport_flights["airport"] = YYZSpider.YYZ
+        self.airport_flights["airport"] = YYZSpider.ICAO_CODE
 
     def start_requests(self):
         yield Request(url=YYZSpider.urls[0], callback=self.__departure_parse)
