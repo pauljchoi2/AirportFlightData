@@ -8,15 +8,11 @@ class YEGSpider(AirportSpider):
     name = "yeg_spider"
     allowed_domains = ["flyeia.com"]
     start_urls = ["http://flyeia.com/flights/departures", "http://flyeia.com/flights/arrivals"]
-    YEG = "YEG"
+    ICAO_CODE = "YEG"
 
     def __init__(self):
         super().__init__()
-        self.airport_flights["airport"] = YEGSpider.YEG
-        self.airport_flights["departures"] = []
-        self.airport_flights["arrivals"] = []
-        self.departures_processed = False
-        self.arrivals_processed = False
+        self.airport_flights["airport"] = YEGSpider.ICAO_CODE
 
     def parse(self, response):
         flights = Selector(response).xpath("//tr[@class='odd'] | //tr[@class='even']")

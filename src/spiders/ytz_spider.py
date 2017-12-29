@@ -9,13 +9,13 @@ class YTZSpider(AirportSpider):
         "https://tpaairport.78digital.com/dev/Departures.aspx",
         "https://tpaairport.78digital.com/dev/Arrivals.aspx"
     ]
-    YTZ = "YTZ"
+    ICAO_CODE = "YTZ"
     LOGO = "logo-"
     MAIN = "MAIN"
 
     def __init__(self):
         super().__init__()
-        self.airport_flights["airport"] = YTZSpider.YTZ
+        self.airport_flights["airport"] = YTZSpider.ICAO_CODE
 
     def start_requests(self):
         yield Request(url=YTZSpider.urls[0], callback=self.__departure_parse)

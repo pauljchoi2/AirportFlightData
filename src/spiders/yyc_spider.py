@@ -8,17 +8,15 @@ class YYCSpider(AirportSpider):
     name = "yyc_spider"
     allowed_domains = ["flightdata.yyc.com"]
     start_urls = ["http://flightdata.yyc.com/api/flights"]
-    YYC = "YYC"
+    ICAO_CODE = "YYC"
     DEP = "D"
     DOMESTIC_CONCOURSES = {"A", "B", "C"}
     INTERNATIONAL_CONCOURSES = {"D", "E"}
 
     def __init__(self):
         super().__init__()
-        self.airport_flights["airport"] = YYCSpider.YYC
+        self.airport_flights["airport"] = YYCSpider.ICAO_CODE
         self.date = datetime.datetime.now().date().strftime("%Y%m%d")
-        self.airport_flights["departures"] = []
-        self.airport_flights["arrivals"] = []
 
     def parse(self, response):
         data_block = json.loads(Selector(response).xpath("//p/text()").extract_first())
