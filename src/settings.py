@@ -64,10 +64,13 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'AirportFlightData.pipelines.AirportflightdataPipeline': 300,
-#}
-
+ITEM_PIPELINES = {
+   'src.pipelines.AirportflightdataPipeline': 300,
+}
+MONGODB_SERVER = "mongodb://airport_data:airport_data>@ds137957.mlab.com:37957/airport_flight_data"
+MONGODB_PORT = 37957
+MONGODB_DB = "airport_flight_data"
+MONGODB_COLLECTION = "flightdata"
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

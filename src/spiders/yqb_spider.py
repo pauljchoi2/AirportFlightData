@@ -1,7 +1,6 @@
 from scrapy import Selector, Request
 from .airport_spider import AirportSpider
 from src.items import FlightItem
-from dateutil import parser
 from datetime import datetime, timedelta
 
 class YQBSpider(AirportSpider):
