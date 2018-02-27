@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'src.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'AirportFlightData (+http://www.yourdomain.com)'
+USER_AGENT = 'AirportFlightData (+https://github.com/pauljchoi2/AirportFlightData)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -27,7 +27,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+# DOWNLOAD_DELAY = 5
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -67,7 +67,9 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
    'src.pipelines.AirportflightdataPipeline': 300,
 }
-MONGODB_SERVER = "mongodb://airport_data:airport_data>@ds137957.mlab.com:37957/airport_flight_data"
+MONGODB_SERVER = "mongodb://airport_data:airport_data@ds137957.mlab.com:37957/airport_flight_data"
+# MONGODB_SERVER = "localhost"
+# MONGODB_PORT = 27017
 MONGODB_PORT = 37957
 MONGODB_DB = "airport_flight_data"
 MONGODB_COLLECTION = "flightdata"
