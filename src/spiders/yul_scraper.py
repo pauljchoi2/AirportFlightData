@@ -17,7 +17,6 @@ class YULSpider(AirportSpider):
     def __init__(self):
         super().__init__()
         self.airport_flights["airport"] = YULSpider.ICAO_CODE
-        self.date = datetime.datetime.now().date().strftime("%Y%m%d")
 
     def parse(self, response):
         flights = json.loads(Selector(response).xpath("//p/text()").extract_first())

@@ -23,7 +23,6 @@ class AirportflightdataPipeline(object):
         self.collection = db[settings['MONGODB_COLLECTION']]
     
     def process_item(self, item, spider):
-        
         self.collection.insert(dict(item))
         log.msg("Question added to MongoDB database!",
                 level=log.DEBUG, spider=spider)
